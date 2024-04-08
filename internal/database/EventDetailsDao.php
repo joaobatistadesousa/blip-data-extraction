@@ -19,16 +19,16 @@ class EventDetailsDao
             $start_date = $_POST["start_date"];
             $end_date = $_POST["end_date"];
             $quantity_of_events = $_POST["quantity_of_events"];
+            $event_name = $_POST["event_name"];
 
             $eventDetails = new EventDetails();
-            $result = $eventDetails->EventDetails($bot_key, $start_date, $end_date, $quantity_of_events);
+            $result = $eventDetails->EventDetails($bot_key, $start_date, $end_date, $quantity_of_events, $event_name);
 
             $response = json_decode($result, true);
             $items = $response['resource']['items'];
 
             $inserted = 0;
             foreach ($items as $item) {
-                var_dump($item);
                 if ($this->insertEventDetailsDao($bot_key, $item, false)) {
                     $inserted++;
                 }
@@ -44,15 +44,16 @@ class EventDetailsDao
 
     private function insertEventDetailsDao($botKey, $item, $displaySuccessMessage = true)
     {
-        if (isset($item['storageDate']) && isset($item['expiration']) && isset($item['customerId'])) {
+        if (isset($item['storageDate']) && isset($item['category']) && isset($item['action']) && isset($item['count'])) {
             $storageDate = date('Y-m-d H:i:s', strtotime($item['storageDate']));
-            $expiration = date('Y-m-d', strtotime($item['expiration']));
-            $customerId = $item['customerId'];
-
-            if (!$this->checkExistingRecord($botKey, $storageDate, $expiration, $customerId)) {
-                $sql = "INSERT INTO event_details (bot_key, storageDate, expiration, customerId) VALUES (?, ?, ?, ?)";
+            $category = $item['category'];
+            $action = $item['action'];
+            $count = $item['count'];
+    
+            if (!$this->checkExistingRecord($botKey, $storageDate, $category, $action, $count)) {
+                $sql = "INSERT INTO event_details (botKey, storageDate, category, action, count) VALUES (?, ?, ?, ?, ?)";
                 $stmt = $this->connection->prepare($sql);
-                $stmt->execute([$botKey, $storageDate, $expiration, $customerId]);
+                $stmt->execute([$botKey, $storageDate, $category, $action, $count]);
                 if ($displaySuccessMessage) {
                     echo "Registro cadastrado com sucesso!";
                 }
@@ -67,16 +68,16 @@ class EventDetailsDao
         }
     }
 
-    private function checkExistingRecord($botKey, $storageDate, $expiration, $customerId)
+    private function checkExistingRecord($botKey, $storageDate, $category, $action, $count)
     {
-        $sql = "SELECT COUNT(*) FROM event_details WHERE bot_key = ? AND storageDate = ? AND expiration = ? AND customerId = ?";
+        $sql = "SELECT COUNT(*) FROM event_details WHERE botKey = ? AND storageDate = ? AND category = ? AND action = ? AND count = ?";
         $stmt = $this->connection->prepare($sql);
-        $stmt->execute([$botKey, $storageDate, $expiration, $customerId]);
+        $stmt->execute([$botKey, $storageDate, $category, $action, $count]);
         $count = $stmt->fetchColumn();
         return $count > 0;
     }
 }
 
-$EventDetailsDao = new EventDetailsDao ();
+$EventDetailsDao = new EventDetailsDao();
 $EventDetailsDao->insert();
 ?>

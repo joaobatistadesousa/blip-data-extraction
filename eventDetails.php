@@ -13,10 +13,14 @@
   <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
 </svg></a>
         <h1>Buscar Relatórios personalizados</h1>
-        <form action="./internal/database/EventDetailsDao.php" method="post" id="form_params">
+        <form action="./internal/database/eventDetailsDao.php" method="post" id="form_params">
             <div class="mb-3">
                 <label for="bot_key" class="form-label">Chave de autorizacão do bot</label>
                 <input type="text" class="form-control" id="bot_key" name="bot_key" placeholder="Informe o bot key">
+            </div>
+            <div class="mb-3">
+                <label for="event_name" class="form-label">Nome do evento</label>
+                <input type="text" class="form-control" id="event_name" name="event_name" placeholder="Nome do evento">
             </div>
             <div class="mb-3">
                 <label for="start_date" class="form-label">Data inicial</label>

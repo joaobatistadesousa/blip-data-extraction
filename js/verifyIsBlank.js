@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const start_date = document.getElementById('start_date');
     const end_date = document.getElementById('end_date');
     const quantity_of_events = document.getElementById('quantity_of_events');
+    const event_name = document.getElementById('event_name');
     const form_params = document.getElementById('form_params');
 
     function isBlank() {
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return false;
             }
         } else {
-            if (bot_key.value === "" || start_date.value === "" || end_date.value === "" || quantity_of_events.value === "") {
+            if (bot_key.value === "" || start_date.value === "" || end_date.value === "" || quantity_of_events.value === "" || event_name.value === "") {
                 alert("Todos os campos devem ser preenchidos");
                 return false;
             }

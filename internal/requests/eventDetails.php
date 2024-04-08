@@ -19,7 +19,8 @@ include_once ('Request.php');
 include_once ('../../core/metrics/EventDetailsInterface.php');
 
 class EventDetails implements EventDetailsInterface{
-    public function EventDetails($bot_key, $start_date, $end_date,$quantity_of_events){
+    
+    public function EventDetails($bot_key, $start_date, $end_date,$quantity_of_events,$event_name){
         $url="https://msging.net/commands";
         $headers = [
             'Content-Type: application/json',
@@ -30,12 +31,13 @@ class EventDetails implements EventDetailsInterface{
             "id" => uniqid(),
             "to" => "postmaster@analytics.msging.net",
             "method" => "get",
-            "uri" => "/event-track/payments/success-order?startDate={$start_date}&endDate={$end_date}&\$take={$quantity_of_events}"
+            "uri" => "/event-track/{$event_name}?startDate={$start_date}&endDate={$end_date}&\$take={$quantity_of_events}"
 
         ]);
         $request=new Request();
         return $request->post($url, $headers, $body);
 
     }
+
 }
 ?>
