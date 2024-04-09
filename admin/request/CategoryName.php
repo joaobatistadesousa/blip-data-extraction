@@ -1,14 +1,11 @@
 <?php
-
-use function PHPSTORM_META\type;
-
 include_once "../../internal/requests/Request.php";
 include_once "../database/SmartContactDao.php";
 include_once "../utilities/retoneDates.php";
 include_once "../utilities/SpaceRemoves.php";
 include_once "../../internal/requests/eventDetails.php";
 
-class EventTrack {
+class CategoryName {
     public $bot_key;
     public $start_date;
     public $end_date;
@@ -55,21 +52,4 @@ class EventTrack {
 
         return $results;
     }
-
-//     public function getAllEvents() {
-//         $results = $this->sendEventTrack();
-
-//         $EventDetails = new EventDetails();
-//         $result2 = [];
-//         foreach ($results as $result) {
-//             $result2[] = $EventDetails->EventDetails($this->bot_key, $this->start_date, $this->end_date, 10, $result);
-
-//         }
-        
-
-//         return json_encode($result2);
-//     }
 }
-//     $event=new EventTrack();
-//     echo $event->getAllEvents();
-?>

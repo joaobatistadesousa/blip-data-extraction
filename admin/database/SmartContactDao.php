@@ -1,5 +1,5 @@
 <?php
-include_once "./../../internal/database/MysqlConection.php";
+include_once "MysqlConection.php";
 class SmartContactDao{
     private $connection;
 
@@ -71,4 +71,8 @@ class SmartContactDao{
             return false;
         }
     }
+
 }
+
+$bot= new SmartContactDao();
+echo json_encode( $bot->findMany());
