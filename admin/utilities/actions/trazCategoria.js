@@ -2,8 +2,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const form_params = document.querySelector('#form_params');
     const bot_key = document.querySelector('#bot_key');
     const category = document.querySelector('#category');
+     
 
-    // Função para fazer a requisição AJAX e preencher o select
+
+    
     function fetchAndPopulateCategories(bot_key_value) {
         const url = "https://msging.net/commands";
         const headers = {
@@ -27,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
             // Limpa as opções atuais do select
             category.innerHTML = '';
+
             // Adiciona as novas opções do select baseado nos dados recebidos
             data.resource.items.forEach(item => {
                 const optionElement = document.createElement('option');

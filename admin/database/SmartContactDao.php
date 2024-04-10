@@ -8,11 +8,12 @@ class SmartContactDao{
         $this->connection = $mysqlConnection->getConnection();
     }
 
-    public function insert($botKey, $clientId){
+    public function insert($botKey,$name, $clientId){
         try {
-            $sql = "INSERT INTO smartContact (botKey, clientId) VALUES (?, ?)";
+            $sql = "INSERT INTO smartContact (botKey, name, clientId) VALUES (?,?, ?)";
             $stmt = $this->connection->prepare($sql);
-            $stmt->execute([$botKey, $clientId]);
+            $stmt->execute([$botKey,$name, $clientId]);
+            echo "Contato inserido com sucesso!";
             return true;
         } catch(PDOException $e) {
             echo "Error: " . $e->getMessage();

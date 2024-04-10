@@ -20,18 +20,16 @@ class EventDetailsDao
             $dates = calcularDatas();
             $start_date = $dates["start_date"];
             $end_date = $dates["end_date"];
-            $quantity_of_events = 10; // Quantidade fixa para teste, você pode alterar conforme necessário
+            $quantity_of_events = 10;
             $event_name = $_POST["category"]; 
             echo $event_name;
-            // Coloque o valor correto aqui, se necessário
-            $idBot = $_POST["idBot"]; // Coloque o valor correto aqui, se necessário
+            
+            $idBot = $_POST["idBot"]; 
 
-            // Você precisa implementar a lógica para obter o idSmartContact com base no bot_key
             
 
              $eventDetails = new EventDetails();
              $result = $eventDetails->EventDetails($bot_key, $start_date, $end_date, $quantity_of_events, $event_name);
-             var_dump($result);
 
              $response = json_decode($result, true);
              if (isset($response['resource']['items'])) {

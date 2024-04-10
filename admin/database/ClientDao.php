@@ -1,4 +1,5 @@
 <?php
+include_once 'MysqlConection.php';
 class ClientDao
 {
     private $connection;
