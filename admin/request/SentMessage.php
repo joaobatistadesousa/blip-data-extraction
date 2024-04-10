@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/style.css">
-    <title>Resposta do Servidor</title>
+    <link rel="stylesheet" href="../../css//index.css">
+        <title>Resposta do Servidor sentMessage</title>
 </head>
 <body>
     <a href="../index.php">
@@ -61,5 +61,4 @@ class SentMessage {
 // Uso
 $sentMessage = new SentMessage();
 $results = $sentMessage->sendToAllSmartContacts();
-echo json_encode($results);
 

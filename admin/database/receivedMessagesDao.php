@@ -1,5 +1,5 @@
 <?php
-include_once "./../../internal/database/MysqlConection.php";
+include_once "./MysqlConection.php";
 include_once "../request/ReceivedMessages.php";
 
 class ReceivedMessagesDao

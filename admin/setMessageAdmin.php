@@ -14,7 +14,7 @@
 </svg></a>
 
         <h1>Buscar infoemações sobre mensagens enviadas</h1>
-        <form action="./internal/database/sentMessageDao.php" method="post" id="form_params">
+        <form action="./database/SentMessageDao.php" method="post" id="form_params">
             
             <button type="submit" class="btn btn-primary">Cadastrar dados</button>
         </form>
