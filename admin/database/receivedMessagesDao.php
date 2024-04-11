@@ -38,7 +38,7 @@ class ReceivedMessagesDao
                     $queryInsert = "INSERT INTO received_messages (idSmartContact, start_date, end_date, count) 
                           VALUES (?, ?, ?, ?)";
                     $statementInsert = $this->connection->prepare($queryInsert);
-                    $statementInsert->execute([$smartContactId, $startDate, $endDate, $count]);
+                    $statementInsert->execute([$smartContactId, date('Y-m-d H:i:s', strtotime($startDate)), date('Y-m-d H:i:s', strtotime($endDate)), $count]);
                 } 
             }
         }

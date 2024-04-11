@@ -53,3 +53,5 @@ class CategoryName {
         return $results;
     }
 }
+$categories = new CategoryName();
+echo json_encode($categories->sendEventTrack());

@@ -25,6 +25,7 @@ class SentMessageDao
     {
         $data = new SentMessage();
         $data = $data->sendToAllSmartContacts();
+        
         foreach ($data as $item) {
             $smartContactId = $item['smartContact']['id'];
             $results = json_decode($item['result'], true);
@@ -39,7 +40,7 @@ class SentMessageDao
                     $queryInsert = "INSERT INTO sentMessage (idSmartContact, start_date, end_date, count) 
                           VALUES (?, ?, ?, ?)";
                     $statementInsert = $this->connection->prepare($queryInsert);
-                    $statementInsert->execute([$smartContactId, $startDate, $endDate, $count]);
+                    $statementInsert->execute([$smartContactId, date('Y-m-d H:i:s', strtotime($startDate)), date('Y-m-d H:i:s', strtotime($endDate)), $count]);
                 } 
             }
         }

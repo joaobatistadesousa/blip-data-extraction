@@ -58,7 +58,4 @@ class SentMessage {
     }
 }
 
-// Uso
-$sentMessage = new SentMessage();
-$results = $sentMessage->sendToAllSmartContacts();
 

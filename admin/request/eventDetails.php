@@ -46,6 +46,7 @@ class EventDetails implements EventDetailsInterface{
         return $request->post($url, $headers, $body);
 
     }
-
+   
 }
+
 ?>
