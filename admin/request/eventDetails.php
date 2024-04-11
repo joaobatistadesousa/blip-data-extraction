@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/index.css">
     <link rel="stylesheet" href="../../css/style.css">
-    <title>Resposta do Servidor</title>
+    <title>Resposta do Servidor EventDetails</title>
 </head>
 <body>
     <a href="../index.php">
@@ -14,21 +15,47 @@
 </body>
 </html>
 
-
 <?php
 include_once ('../../internal/requests/Request.php');
 include_once ('../../core/metrics/EventDetailsInterface.php');
 
 class EventDetails implements EventDetailsInterface{
-     function checkEventName($event_name){
-            if (strpos($event_name, ' ') !== false) {
-                $event_name = str_replace(' ', '%20', $event_name);
-            }
-            return $event_name;
+
+    public function codificarSeNecessario($string) {
+        $stringCodificada = urlencode($string);
+        if ($string !== $stringCodificada) {
+            return $stringCodificada;
+        } else {
+            return $string;
+        }
+    }
+
+    public function checkEventName($event_name){
+        // Verifica se a string contém caracteres acentuados
+        if (preg_match('/[áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ]/u', $event_name)) {
+            // Codifica os caracteres acentuados
+            $event_name = preg_replace_callback('/[áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ]/u', function($matches) {
+                return urlencode($matches[0]);
+            }, $event_name);
         }
         
-        public function EventDetails($bot_key, $start_date, $end_date,$quantity_of_events,$event_name){
-           $event_name = $this->checkEventName($event_name); // Corrigido para $this->checkEventName
+        // Verifica se a string contém espaços
+        if (strpos($event_name, ' ') !== false) {
+            // Separa a string em partes
+            $parts = explode(' ', $event_name);
+            
+            // Codifica cada parte se necessário
+            $encodedParts = array_map([$this, 'codificarSeNecessario'], $parts);
+            
+            // Junta as partes com %20
+            $event_name = implode('%20', $encodedParts);
+        }
+        
+        return $event_name;
+    }
+        
+    public function EventDetails($bot_key, $start_date, $end_date, $quantity_of_events, $event_name){
+        $event_name = $this->checkEventName($event_name); // Corrigido para $this->checkEventName
         $url="https://msging.net/commands";
         $headers = [
             'Content-Type: application/json',
@@ -40,13 +67,11 @@ class EventDetails implements EventDetailsInterface{
             "to" => "postmaster@analytics.msging.net",
             "method" => "get",
             "uri" => "/event-track/{$event_name}?startDate={$start_date}&endDate={$end_date}&\$take={$quantity_of_events}"
-
         ]);
+
         $request=new Request();
         return $request->post($url, $headers, $body);
-
     }
-   
 }
 
 ?>

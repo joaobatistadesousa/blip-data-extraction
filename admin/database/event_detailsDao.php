@@ -1,6 +1,6 @@
 <?php
 include_once "./MysqlConection.php";
-include_once "../../internal/requests/eventDetails.php";
+include_once "../request/eventDetails.php";
 include_once "../utilities/retoneDates.php";
 
 class EventDetailsDao
@@ -12,6 +12,7 @@ class EventDetailsDao
         $mysqlConnection = new MysqlConection();
         $this->connection = $mysqlConnection->getConnection();
     }
+    
 
     public function insert()
     {
@@ -21,16 +22,15 @@ class EventDetailsDao
             $start_date = $dates["start_date"];
             $end_date = $dates["end_date"];
             $quantity_of_events = 10;
-            $event_name = $_POST["category"]; 
-            echo $event_name;
-            
+            $event_name =$_POST["category"];
+
+
             $idBot = $_POST["idBot"]; 
 
             
 
              $eventDetails = new EventDetails();
              $result = $eventDetails->EventDetails($bot_key, $start_date, $end_date, $quantity_of_events, $event_name);
-
              $response = json_decode($result, true);
              if (isset($response['resource']['items'])) {
                  $items = $response['resource']['items'];
