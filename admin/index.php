@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['user'] )){
+    header('Location: loginUser.php');
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
