@@ -47,12 +47,11 @@
                     @csrf
                     <label for="bot_key" class="form-label">Selecionar bot:</label>
                     <select name="bot_key" id="bot_key" class="form-select" aria-label="Selecionar bot">
-
                         @foreach ($bots as $bot)
-                            <option value="{{ $bot->botKey }}" >{{ $bot->name }}</option>
-                            <input type="hidden" name="idBot" id="id" value="{{$bot->id}}">
+                            <option value="{{ $bot->botKey }}" data-id="{{ $bot->id }}">{{ $bot->name }}</option>
                         @endforeach
                     </select>
+                    <input type="hidden" name="idBot" id="idBot">
 
                     <div class="mb-3">
                         <label for="category" class="form-label">Selecionar categoria:</label>
@@ -63,6 +62,7 @@
                     <button type="submit" class="btn btn-primary">Buscar</button>
                 </form>
 
+
                 </div>
 
             </div>
@@ -72,11 +72,11 @@
 @endsection
 @section('js')
 <script>
-   document.addEventListener('DOMContentLoaded', function () {
-    const form_params = document.querySelector('#form_params');
+    document.addEventListener('DOMContentLoaded', function () {
     const bot_key = document.querySelector('#bot_key');
+    const idBot = document.querySelector('#idBot');
     const category = document.querySelector('#category');
-console.log(bot_key);
+
     function generateGuid() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
             const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -105,10 +105,7 @@ console.log(bot_key);
         })
         .then(response => response.json())
         .then(data => {
-            // Limpa as opções atuais do select
-            category.innerHTML = '';
-
-            // Adiciona as novas opções do select baseado nos dados recebidos
+            category.innerHTML = '<option value="">Selecione uma categoria</option>'; // Limpa e adiciona a opção padrão
             data.resource.items.forEach(item => {
                 const optionElement = document.createElement('option');
                 optionElement.value = item.category;
@@ -119,14 +116,17 @@ console.log(bot_key);
         .catch(error => console.error('Erro ao fazer a requisição:', error));
     }
 
-    // Chamada inicial para preencher o select com as opções padrão
-    fetchAndPopulateCategories(bot_key.value);
-
+    // Atualiza o valor de idBot e categorias ao mudar de bot
     bot_key.addEventListener('change', function () {
-        const bot_key_value = bot_key.value;
-        fetchAndPopulateCategories(bot_key_value);
-        idBot.value = bot_key_value; // Atualiza o valor de idBot
+        const selectedBot = bot_key.options[bot_key.selectedIndex];
+        idBot.value = selectedBot.getAttribute('data-id'); // Atualiza o valor de idBot
+        fetchAndPopulateCategories(selectedBot.value); // Atualiza as categorias
     });
+
+    // Chamada inicial para preencher o idBot e as categorias
+    if (bot_key.selectedIndex >= 0) {
+        bot_key.dispatchEvent(new Event('change'));
+    }
 });
 
 </script>

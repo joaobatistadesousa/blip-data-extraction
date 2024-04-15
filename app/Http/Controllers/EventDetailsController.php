@@ -31,56 +31,61 @@ class EventDetailsController extends Controller
      */
     public function store(Request $request)
 {
+
     $idBot = $request->idBot;
     $bot_key = $request->bot_key;
-$event_name = $request->category;
+    $event_name = $request->category;
 
-$event = new EventDetailsRequest();
-$datas = $event->calcularDatas();
-$results = $event->EventDetails($bot_key, $datas['start_date'], $datas['end_date'], 10, $event_name);
-
-// Verifica se $results é um objeto stdClass e converte para array se necessário
-if (is_string($results)) {
-    $results = json_decode($results, true);
-}
-
-foreach ($results as $item) {
-    $storageDate = date('Y-m-d H:i:s', strtotime($item->storageDate));
-
-    $category = $item->category;
-    $action = $item->action;
-    $count = $item->count;
-
-    // Verifica se já existe um registro com os mesmos valores
-    $existingRecord = EventDetails::where('storageDate', $storageDate)
-        ->where('category', $category)
-        ->where('action', $action)
-        ->where('count', $count)
-        ->where('idSmartContact', $idBot)
-        ->first();
-
-    if (!$existingRecord) {
-        // Não existe um registro com os mesmos valores, então insira
-        EventDetails::create([
-            'idSmartContact' => $idBot,
-            'category' => $category,
-            'action' => $action,
-            'storageDate' => $storageDate,
-            'count' => $count
-        ]);
-        return redirect()->back()->with('success', 'Dados inseridos com sucesso!');
-
-    }else{
-        // Já existe um registro com esses valores, mande uma mensagem de erro
-        return redirect()->back()->withErrors(['error' => 'Já existe um registro com esses dados, não foi possível inserir']);
+    $event = new EventDetailsRequest();
+    $datas = $event->calcularDatas();
+    $results = $event->EventDetails($bot_key, $datas['start_date'], $datas['end_date'], 10, $event_name);
+    // dd($results,
+    // $request->all());
+    // Verifica se $results é um objeto stdClass e converte para array se necessário
+    if (is_string($results)) {
+        $results = json_decode($results, true);
     }
-}
+
+    $insertedCount = 0; // Contador para registros inseridos
+    $duplicateCount = 0; // Contador para duplicatas encontradas
+
+    foreach ($results as $item) {
+        $storageDate = date('Y-m-d H:i:s', strtotime($item->storageDate));
+
+        $category = $item->category;
+        $action = $item->action;
+        $count = $item->count;
+
+        // Verifica se já existe um registro com os mesmos valores
+        $existingRecord = EventDetails::where('storageDate', $storageDate)
+            ->where('category', $category)
+            ->where('action', $action)
+            ->where('count', $count)
+            ->where('idSmartContact', $idBot)
+            ->first();
+
+        if (!$existingRecord) {
+            // Não existe um registro com os mesmos valores, então insira
+            EventDetails::create([
+                'idSmartContact' => $idBot,
+                'category' => $category,
+                'action' => $action,
+                'storageDate' => $storageDate,
+                'count' => $count
+            ]);
+            $insertedCount++;
+        } else {
+            $duplicateCount++;
+        }
+    }
+
+    if ($insertedCount > 0) {
+        return redirect()->back()->with('success', "{$insertedCount} dados inseridos com sucesso!");
+    } else {
+        return redirect()->back()->withErrors(['error' => "{$duplicateCount} registros duplicados encontrados, nenhum novo dado foi inserido."]);
+    }
 
 }
-
-
-
-
 
 
 
@@ -188,12 +193,12 @@ class EventDetailsRequest
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_CAINFO, 'C:/laragon/etc/ssl/cacert.pem');
 
+        // Adicione estes logs para debugar
         try {
             $response = curl_exec($ch);
             if (curl_errno($ch)) {
                 throw new Exception('Erro na requisição: ' . curl_error($ch));
             }
-
             return $response;
         } catch (Exception $e) {
             throw new Exception('Erro na requisição: ' . $e->getMessage());
