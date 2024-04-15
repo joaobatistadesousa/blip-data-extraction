@@ -8,6 +8,6 @@
 </head>
 <body>
     <h1>Recuperar Senha extração de dados</h1>
-    <p>aqui esta seu codigo de verificação e alteração de senha {{$code}}</p>
+    <p>aqui esta seu codigo de verificação e alteração de senha <b>{{$code}}</b></p>
 </body>
 </html>

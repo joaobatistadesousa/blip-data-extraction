@@ -27,7 +27,7 @@
                     <label for="codigo" class="form-label">Código:</label>
                     <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Seu Código de Recuperação recebido pelo email" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Verificar Código</button>
+                <button type="submit" class="btn" id="verifyButtonCode">Verificar Código</button>
             </form>
         </div>
     </div>

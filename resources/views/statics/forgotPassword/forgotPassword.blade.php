@@ -27,7 +27,7 @@
                 <label for="email" class="form-label">Email:</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Seu email" required>
             </div>
-            <button type="submit" class="btn btn-primary">Recuperar Senha</button>
+            <button type="submit" class="btn btn-primary" id="recoveryButton">Recuperar Senha</button>
         </form>
     </div>
 </div>

@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+*{
+    size: 3rem;
+}
+
+
+
+/* Content styling */
+.content {
+    padding: 100px 20px;
+    text-align: center;
+    color: white;
+}
+
+.content p {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+/* Style for different sections */
+.section {
+    padding: 50px 20px;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+/* Title styling */
+.title {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+#relatorio {
+    background-color: rgb(91, 166, 166);
+
+    background-attachment: fixed;
+ 
+ background-position: center;
+ background-repeat: no-repeat;
+
+}
+#recebidas{
+    background-color: rgb(78, 200, 200);
+
+    background-position: center;
+    background-attachment: fixed;
+}
+#enviadas{
+    background-position: center;
+    background-attachment: fixed;
+    background-color: rgb(162, 226, 226);
+
+}
+#boasVindas{
+    background-color: rgb(167, 236, 236);
+background-position: center;
+    background-attachment: fixed;
+
+
+}

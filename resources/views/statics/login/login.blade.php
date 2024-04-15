@@ -1,5 +1,8 @@
 @extends('statics.layout')
 @section('title', 'Itechit | Login')
+@section('css')
+    <link rel="stylesheet" href="{{ asset('styles/login.css') }}">
+    @endsection
 @section('menu-itens')
     <li class="nav-item">
         <a class="nav-link active" href="{{ route('web.home') }}">Home</a>
@@ -50,9 +53,9 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <p>Ainda não possui conta conta</p> <a href="{{ route('register') }}">Crie sua conta aqui</a>
+                    <a href="{{ route('register') }}">Crie sua conta aqui</a>
                     </div>
-                <button type="submit" class="btn btn-primary">Entrar</button>
+                <button type="submit" class="btn btn-primary" id="loginButton">Entrar</button>
             </form>
         </div>
     </div>

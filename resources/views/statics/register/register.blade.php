@@ -1,9 +1,9 @@
 @extends('statics.layout')
 @section('title', 'Itechit | Cadastro de Usuário')
-@section('css')
-    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
-@endsection
 @section('menu-itens')
+@section('css')
+    <link rel="stylesheet" href="{{ asset('styles/register.css') }}">
+    @endsection
     <li class="nav-item">
         <a class="nav-link active" href="{{ route('web.home') }}">Home</a>
     </li>
@@ -63,7 +63,7 @@
                 <a href="{{ route('login') }}">Já Possui Conta? Clique Aqui</a>
                 <div class="mb-3">
 
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <button type="submit" class="btn btn-primary" id="registerButton">Cadastrar</button>
                 </div>
             </form>
         </div>

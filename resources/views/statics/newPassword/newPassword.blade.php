@@ -36,7 +36,7 @@
 
                 <div id="message"></div>
 
-                <button type="submit" class="btn btn-primary">Salvar Nova Senha</button>
+                <button type="submit" class="btn" id="newPasswordButton">Salvar Nova Senha</button>
             </form>
         </div>
     </div>

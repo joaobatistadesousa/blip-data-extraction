@@ -1,0 +1,69 @@
+
+/* Estilo para o logotipo na barra de navegação */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    
+}
+
+nav{
+    
+    background-color: #ffffff !important;
+}
+/* Estilo para os links do menu na barra de navegação */
+.navbar-nav .nav-link {
+    font-weight: bold;
+    color: #2d42de;
+    padding: 10px 20px;
+}
+
+/* Estilo para o link ativo na barra de navegação */
+.navbar-nav .nav-link.active {
+    color: #007bff; /* Cor azul padrão do Bootstrap */
+}
+
+.nav-link:hover {
+    color: #849fbf; /* Cor azul padrão do Bootstrap */
+}
+/* Estilo para o botão de alternância (para telas pequenas) */
+.navbar-toggler {
+    border: none;
+    background-color: transparent;
+}
+
+/* Estilo para o ícone do botão de alternância */
+.navbar-toggler-icon {
+    color:#4a57bf;
+}
+
+/* Estilo para a barra de navegação quando expandida (para telas pequenas) */
+.navbar-collapse {
+    justify-content: center;
+}
+.form-label {
+    border-radius: 10px;
+    color: #5d6bd9;
+}
+#recoveryButton{
+    background-color: #4a57bf;
+}
+#verifyButtonCode{
+    background-color: #4a57bf;
+}
+#newPasswordButton{
+    background-color: #4a57bf;
+}
+.logoImage{
+  /*
+  	66 × 43 px
+  */
+  width: 66px;
+  height: 43px;
+}
+h2{
+    color: #4a57bf;
+}
+.navbar-toggler-icon{
+background-color: #4a57bf;
+opacity: 0.5;
+}
