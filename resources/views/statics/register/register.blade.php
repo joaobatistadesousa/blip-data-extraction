@@ -41,15 +41,15 @@
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="name" placeholder="Seu nome" name="name" autofocus>
+                    <input type="text" class="form-control" id="name" placeholder="Seu nome" name="name" autofocus required>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Seu email" name="email" autofocus>
+                    <input type="email" class="form-control" id="email" placeholder="Seu email" name="email" autofocus required>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Senha</label>
-                    <input type="password" class="form-control" id="password" placeholder="Sua senha" name="password">
+                    <input type="password" class="form-control" id="password" placeholder="Sua senha" name="password" required>
                 </div>
                 <div id="passwordStrong">
 
@@ -57,7 +57,7 @@
 
                 <div class="mb-3">
                     <label for="passwordAgain" class="form-label">Confirmar Senha</label>
-                    <input type="password" class="form-control" id="passwordAgain" placeholder="Confirme sua senha" name="passwordAgain">
+                    <input type="password" class="form-control" id="passwordAgain" placeholder="Confirme sua senha" name="passwordAgain" required>
                 <div id="message">
                 </div>
                 <a href="{{ route('login') }}">Já Possui Conta? Clique Aqui</a>
