@@ -33,26 +33,25 @@ class UserController extends Controller
 
         public function store(Request $request)
         {
-
-
-
+            if (User::where('email', $request->email)->exists()) {
+                // Redirecionar de volta com erro se o e-mail já estiver em uso
+                return redirect()->back()->withErrors(['error' => 'Não é possível cadastrar verifique os dados e tente novamente.']);
+            }
+            
+            // Se o e-mail não estiver em uso, prossiga para criar o usuário
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
-            if($user){
-                $request->session()->put('user', $user);
-                return redirect()->back()->with('success', 'Usuários Cadastrado com sucesso');
-
-                }else{
-                    return redirect()->back()->withErrors(['error' => 'Erro ao registrar o usuário']);
+            
+            // Você pode verificar se a criação foi bem-sucedida
+            if (!$user) {
+                return redirect()->back()->withErrors(['error' => 'Erro ao registrar o usuário']);
             }
-
-            // Outras ações após salvar o usuário
-
-    }
-
+            return redirect()->back()->with('success', 'Cadastro realizado com sucesso!');
+            
+        }
     /**
      * Display the specified resource.
      */

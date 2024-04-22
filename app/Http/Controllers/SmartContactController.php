@@ -29,11 +29,20 @@ class SmartContactController extends Controller
      */
     public function store(Request $request)
     {
-        SmartContact::create([
+        $smart = SmartContact::where('botKey', $request->bot_key)->first();
+        if($smart){
+            return redirect()->back()->withErrors(['error' => "Nao foi possivel cadastrar, verifique os dados e tente novamente"]);
+        }
+        $smartContact= SmartContact::create([
             'botKey' => $request->bot_key,
             'name' => $request->bot_name,
             'clientId' => $request->client_id
         ]);
+        if($smartContact){
+            return redirect()->back()->withErrors(['success' => "Bot criado com sucesso"]);
+        }
+
+
     }
 
     /**

@@ -27,6 +27,22 @@
         <div class="row">
             <div class="col-12">
                 <h1>Cadastrar um novo bot</h1>
+                @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+
+            <!-- Adicione esta seção no seu arquivo Blade onde você deseja exibir a mensagem -->
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ $errors->first('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+       
         <form action="{{ route('saveSmartContractInSystem')}}" method="post" id="form_params">
             @csrf
             <div class="mb-3">

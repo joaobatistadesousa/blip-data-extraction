@@ -31,11 +31,18 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+        $client2=Client::where('customerName', $request->ClientName)->first();
+        if($client2){
+            return redirect()->back()->withErrors(['error' => "Nao foi possivel cadastrar, verifique os dados e tente novamente"]);
+        }
             $client=Client::create([
                 'customerName'=>$request->ClientName,
                 'planName'=>$request->planClient
             ]);
             $client->save();
+            if($client){
+                return redirect()->back()->with(['success' => "Cliente criado com sucesso"]);
+            }
     }
 
     /**
