@@ -47,9 +47,14 @@ class WebController extends Controller
             $user=User::where('email', $email)->first();
             $user->code=$code;
             $user->save();
-        }
+            
         Mail::to($email)->send(new SendemailRecovery ($code));
         return view('statics.inputCode.inputCode');
+
+        }else{
+            return redirect()->back()->withErrors(['error' => 'email não encontrado, verifique e-mail e tente novamente.']);
+        }
+        
     }
     public function verifyCodeEmailRecovery(Request $request){
 
