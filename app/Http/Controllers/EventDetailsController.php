@@ -39,7 +39,12 @@ class EventDetailsController extends Controller
     $event = new EventDetailsRequest();
     $datas = $event->calcularDatas();
     $results = $event->EventDetails($bot_key, $datas['start_date'], $datas['end_date'], 10, $event_name);
-    // dd($results,
+    
+     if($results==[]){
+        return redirect()->back()->withErrors(['error' => "Nenhum registro encontrado"]);
+
+
+     }
     // $request->all());
     // Verifica se $results é um objeto stdClass e converte para array se necessário
     if (is_string($results)) {
@@ -134,33 +139,22 @@ class EventDetailsRequest
         return array('start_date' => $startDate, 'end_date' => $endDate);
     }
 
-    public function codificarSeNecessario($string)
+    
+
+    function checkEventName($event_name)
     {
-        $stringCodificada = urlencode($string);
-        if ($string !== $stringCodificada) {
-            return $stringCodificada;
-        } else {
-            return $string;
+        // Verifica se a string contém caracteres especiais
+        if (preg_match('/[^\w\s\d]/u', $event_name)) {
+            $event_name = urlencode($event_name);
+            
         }
-    }
-
-    public function checkEventName($event_name)
-    {
-        if (preg_match('/[áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ]/u', $event_name)) {
-            $event_name = preg_replace_callback('/[áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ]/u', function ($matches) {
-                return urlencode($matches[0]);
-            }, $event_name);
+        else{
+         $event_name = urlencode($event_name);
         }
-
-        if (strpos($event_name, ' ') !== false) {
-            $parts = explode(' ', $event_name);
-            $encodedParts = array_map([$this, 'codificarSeNecessario'], $parts);
-            $event_name = implode('%20', $encodedParts);
-        }
-
         return $event_name;
+    
+    
     }
-
     public function EventDetails($bot_key, $start_date, $end_date, $quantity_of_events, $event_name)
     {
         $event_name = $this->checkEventName($event_name);
