@@ -49,6 +49,10 @@ class SentMessageController extends Controller
                     ->where('count', $count)
                     ->first();
 
+                if($existingRecord) {
+                    // Já existe um registro com esses valores, mande uma mensagem de erro
+                    return redirect()->back()->withErrors(['error' => 'Já existe um registro com esses dados, não foi possível inserir']);
+                }
                 if (!$existingRecord) {
                     // Não existe um registro com os mesmos valores, então insira
                     SentMessage::create([
