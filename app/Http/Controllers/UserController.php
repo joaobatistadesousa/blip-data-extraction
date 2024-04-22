@@ -46,7 +46,7 @@ class UserController extends Controller
                 return redirect()->back()->with('success', 'Usuários Cadastrado com sucesso');
 
                 }else{
-                return redirect()->back()->with('error', 'Erro ao registrar o usuário');
+                    return redirect()->back()->withErrors(['error' => 'Erro ao registrar o usuário']);
             }
 
             // Outras ações após salvar o usuário
@@ -98,7 +98,7 @@ class UserController extends Controller
     } else {
         // Usuário não encontrado ou senha incorreta
         // Redirecionar de volta com uma mensagem de erro
-        return redirect()->back()->with('error', 'Credenciais inválidas. Por favor, verifique seu e-mail e senha.');
+        return redirect()->back()->withErrors(['error' => 'Credenciais inválidas. Por favor, verifique seu e-mail e senha.']);
     }
 }
 public function verifyEmail(Request $request){
