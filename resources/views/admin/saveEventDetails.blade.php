@@ -56,7 +56,7 @@
                     <div class="mb-3">
                         <label for="category" class="form-label">Selecionar categoria:</label>
                         <select name="category" id="category" class="form-select" aria-label="Selecionar categoria">
-                            <option value="">Selecione uma categoria</option>
+
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Buscar</button>
@@ -105,7 +105,6 @@
         })
         .then(response => response.json())
         .then(data => {
-            category.innerHTML = '<option value="">Selecione uma categoria</option>'; // Limpa e adiciona a opção padrão
             data.resource.items.forEach(item => {
                 const optionElement = document.createElement('option');
                 optionElement.value = item.category;

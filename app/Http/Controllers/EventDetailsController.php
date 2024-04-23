@@ -30,8 +30,8 @@ class EventDetailsController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
 
+{
     $idBot = $request->idBot;
     $bot_key = $request->bot_key;
     $event_name = $request->category;
@@ -39,7 +39,7 @@ class EventDetailsController extends Controller
     $event = new EventDetailsRequest();
     $datas = $event->calcularDatas();
     $results = $event->EventDetails($bot_key, $datas['start_date'], $datas['end_date'], 10, $event_name);
-    
+
      if($results==[]){
         return redirect()->back()->withErrors(['error' => "Nenhum registro encontrado"]);
 
@@ -139,21 +139,21 @@ class EventDetailsRequest
         return array('start_date' => $startDate, 'end_date' => $endDate);
     }
 
-    
+
 
     function checkEventName($event_name)
     {
         // Verifica se a string contém caracteres especiais
         if (preg_match('/[^\w\s\d]/u', $event_name)) {
             $event_name = urlencode($event_name);
-            
+
         }
         else{
          $event_name = urlencode($event_name);
         }
         return $event_name;
-    
-    
+
+
     }
     public function EventDetails($bot_key, $start_date, $end_date, $quantity_of_events, $event_name)
     {
