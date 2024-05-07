@@ -67,3 +67,6 @@ h2{
 background-color: #4a57bf;
 opacity: 0.5;
 }
+#email::placeholder{
+font-size: 15px;
+}

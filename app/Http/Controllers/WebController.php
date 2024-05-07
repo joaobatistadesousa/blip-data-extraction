@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\SendemailRecovery;
+use App\Mail\ContactFormMail;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+
 
 class WebController extends Controller
 {
@@ -76,5 +77,32 @@ class WebController extends Controller
             return redirect()->route('forgot-password');
         }
     }
+    
+
+public function sendEmailContact(Request $request)
+{
+    $data = $request->validate([
+        'name' => 'required',
+        'email' => 'required|email',
+        'phone' => 'nullable',
+        'subject' => 'required',
+        'message' => 'required',
+    ]);
+
+    Mail::to('seu@email.com')->send(new ContactFormMail(
+       //$name, $email, $phone, $subject, $message
+
+       $data['name'],
+       $data['email'],
+       $data['phone'],
+       $data['subject'],
+     $data['message']
+    )
+
+);
+return redirect()->back()->with('success', 'E-mail enviado com sucesso!');
+
+}
+
 
 }
