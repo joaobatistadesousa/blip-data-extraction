@@ -28,6 +28,12 @@
 
 @yield('content')
 
+<footer class="footer">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <p class="text-center">© Itechit. Todos os direitos reservados.</p>
+
 <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
 @yield('js')
 </body>

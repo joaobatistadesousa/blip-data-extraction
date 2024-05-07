@@ -36,7 +36,7 @@
                     <div>
                       <h4 class="mb-3">Contato</h4>
                       <p class="mb-0">
-                        <a class="link-secondary text-decoration-none" href="tel:+55 (55) 00000000000"> (55) 00000-0000</a>
+                        <a class="link-secondary text-decoration-none" href="tel:+55 11 91227460"> (11) 91227-460</a>
                       </p>
                     </div>
                   </div>
@@ -52,7 +52,7 @@
                     <div>
                       <h4 class="mb-3">E-Mail</h4>
                       <p class="mb-0">
-                        <a class="link-secondary text-decoration-none" href="mailto:demo@yourdomain.com">demo@yourdomain.com</a>
+                        <a class="link-secondary text-decoration-none" href="mailto:comercial@itechit.com.br">comercial@itechit.com.br</a>
                       </p>
                     </div>
                   </div>
