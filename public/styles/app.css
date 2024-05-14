@@ -67,3 +67,12 @@ h2{
 background-color: #4a57bf;
 opacity: 0.5;
 }
+#email::placeholder{
+font-size: 15px;
+}
+#about-image{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-size: cover;
+}

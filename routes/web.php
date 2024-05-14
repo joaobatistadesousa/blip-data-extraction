@@ -15,3 +15,4 @@ Route::post("/verifyLogin", [\App\Http\Controllers\UserController::class, 'login
 Route::post("/sendEmailRecoveryPassword", [\App\Http\Controllers\WebController::class, 'sendEmailRecoveryPassword'])->name('sendEmailRecoveryPassword');
 Route::post("/VerifyCodeEmailRecovery", [\App\Http\Controllers\WebController::class, 'VerifyCodeEmailRecovery'])->name('VerifyCodeEmailRecovery');
 Route::post("/saveNewPassword", [\App\Http\Controllers\WebController::class, 'registerNewPassword'])->name('saveNewPassword');
+Route::post("/sendEmailContact", [\App\Http\Controllers\WebController::class, 'sendEmailContact'])->name('sendEmailContact');
