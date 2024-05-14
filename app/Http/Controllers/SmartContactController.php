@@ -39,7 +39,7 @@ class SmartContactController extends Controller
             'clientId' => $request->client_id
         ]);
         if($smartContact){
-            return redirect()->back()->withErrors(['success' => "Bot criado com sucesso"]);
+            return redirect()->back()->with(['success' => "Bot criado com sucesso"]);
         }
 
 

@@ -42,7 +42,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-       
+
                 <form action="{{route('saveClient')}}" method="post" id="form_params">
                     @csrf
                     <div class="mb-3">
@@ -55,7 +55,7 @@
                         <label for="planClient" class="form-label"> Qual o plano do cliente</label>
                         <input type="text" class="form-control" id="planClient" name="planClient" placeholder="Nome do plano" required>
                     </div>
-                        <button type="submit" class="btn btn-primary">Cadastrar cadastro de um novo bot</button>
+                        <button type="submit" class="btn btn-primary">Cadastrar um novo Cliente</button>
                 </form>
                 </div>
 

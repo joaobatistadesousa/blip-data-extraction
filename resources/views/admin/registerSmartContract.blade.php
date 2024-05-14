@@ -42,7 +42,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-       
+
         <form action="{{ route('saveSmartContractInSystem')}}" method="post" id="form_params">
             @csrf
             <div class="mb-3">
@@ -64,7 +64,7 @@
                 <label for="bot_name" class="form-label"> Nome do bot</label>
                 <input type="text" class="form-control" id="bot_name" name="bot_name" placeholder="Nome do bot" required>
             </div>
-                <button type="submit" class="btn btn-primary">Cadastrar cadastro de um novo bot</button>
+                <button type="submit" class="btn btn-primary">Cadastrar um novo bot</button>
         </form>
     </div>
 
