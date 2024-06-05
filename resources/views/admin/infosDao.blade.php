@@ -1,5 +1,5 @@
 @extends('statics.layout')
-@section('title', 'Itechit | Admin | mensagens recebidas')
+@section('title', 'Itechit | Admin | Daily active users')
 @section('meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
@@ -17,12 +17,12 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('saveSentMessage') }}">Menssagens Enviadas</a>
     </li>
-
     <li class="nav-item">
         <a class="nav-link" href="{{ route('saveReceivedMessage') }}">Menssagens Recebidas</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ route('saveEventDetails') }}">Eventos Personalizados</a>
+
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ route('saveDaus') }}">Infos DAO</a>
@@ -33,7 +33,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1>Buscar infoemações sobre mensagens Recebidas</h1>
+                <h1>Buscar infoemações sobre usuarios unicos por dia</h1>
 
                 <!-- Adicione esta seção no seu arquivo Blade onde você deseja exibir a mensagem -->
                 @if (session('success'))
@@ -52,7 +52,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('saveReceivedMessageRequest') }}" method="post" id="form_params">
+                <form action="{{ route('saveDausRequest') }}" method="post" id="form_params">
                     @csrf
                     <button type="submit" class="btn btn-primary">Cadastrar dados</button>
                 </form>

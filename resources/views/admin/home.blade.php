@@ -25,6 +25,9 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ route('saveEventDetails') }}">Eventos Personalizados</a>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('saveDaus') }}">Infos DAO</a>
+        </li>
     </li>
     @endsection
 @section('content')

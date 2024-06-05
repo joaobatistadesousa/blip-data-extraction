@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\SmartContact;
 use Illuminate\Http\Request;
+use App\Models\Client;
 
 class SmartContactController extends Controller
 {
@@ -39,7 +40,7 @@ class SmartContactController extends Controller
             'clientId' => $request->client_id
         ]);
         if($smartContact){
-            return redirect()->back()->withErrors(['success' => "Bot criado com sucesso"]);
+            return redirect()->back()->with(['success' => "Bot criado com sucesso"]);
         }
 
 
@@ -76,4 +77,48 @@ class SmartContactController extends Controller
     {
         //
     }
+    public function getAllClientsOfPlanNames()
+    {
+        // Supondo que você tenha um modelo Client que mapeia para a tabela client
+        $clients = Client::whereIn('planName', [
+            'Startup',
+            'Lite',
+            'Plus',
+            'Super'
+        ])->get()->pluck('id');
+    
+        $results = [];
+    
+        foreach ($clients as $clientId) {
+            $smartContacts = SmartContact::where('clientId', $clientId)->get()->toArray();
+            $results = array_merge($results, $smartContacts);
+        }
+    
+        return $results;
+    }
+    
+ 
+    public function getAllClientsExcludingPlanNames()
+{
+    $clients = Client::whereNotIn('planName', [
+        'Startup',
+        'Lite',
+        'Plus',
+        'Super'
+    ])->get()->pluck('id');
+
+    
+
+    $results = [];
+
+    foreach ($clients as $clientId) {
+        $smartContacts = SmartContact::where('clientId', $clientId)->get()->toArray();
+        
+        $results = array_merge($results, $smartContacts);
+    
+    }
+
+    return $results;
+}
+
 }

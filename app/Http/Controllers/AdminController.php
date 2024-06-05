@@ -73,4 +73,7 @@ $bots=SmartContact::all();
 }
         return view('admin.registerSuccess');
     }
+    public function saveDaus(){
+        return view('admin.infosDao');
+    }
 }

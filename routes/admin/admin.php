@@ -12,10 +12,11 @@ Route::get('/admin/saveEventDetails', [\App\Http\Controllers\AdminController::cl
 
 
 Route::get('/admin/register-success', [\App\Http\Controllers\AdminController::class, 'registerSuccess'])->name('register-success');
-
+Route::get('/admin/saveDaus', [\App\Http\Controllers\AdminController::class, 'saveDaus'])->name('saveDaus'); 
 Route::post('/admin/saveUser', [\App\Http\Controllers\UserController::class, 'store'])->name('saveUser');
 Route::post('/admin/saveClient', [\App\Http\Controllers\ClientController::class, 'store'])->name('saveClient');
 Route::post('/admin/saveSmartContractInSystem', [\App\Http\Controllers\SmartContactController::class, 'store'])->name('saveSmartContractInSystem');
 Route::post('/admin/saveReceivedMessageRequest', [\App\Http\Controllers\ReceivedMessageController::class, 'store'])->name('saveReceivedMessageRequest');
 Route::post('/admin/saveSentMessageRequest', [\App\Http\Controllers\SentMessageController::class, 'store'])->name('saveSentMessageRequest');
 Route::post('/admin/saveEventDetailsRequest', [\App\Http\Controllers\EventDetailsController::class, 'store'])->name('saveEventDetailsRequest');
+Route::post('/admin/saveDausRequest', [\App\Http\Controllers\ClientsPlanDausController::class, 'store'])->name('saveDausRequest');

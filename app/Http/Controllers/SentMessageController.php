@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SentMessage;
 use App\Models\SmartContact;
+use App\Http\Controllers\SmartContactController;
 use Illuminate\Support\Facades\Log;
 use Exception;
 
@@ -31,43 +32,39 @@ class SentMessageController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $r = new SentMessageC();
-        $results = $r->ReceivedToAllSmartContacts();
+{
+    $r = new SentMessageC();
+    $results = $r->ReceivedToAllSmartContacts();
 
-        foreach ($results['dataUser'] as $userId => $userData) {
-            foreach ($userData as $item) {
-                $idSmartContact = $userId;
-                $startDate = date('Y-m-d H:i:s', strtotime($item['intervalStart']));
-                $endDate = date('Y-m-d H:i:s', strtotime($item['intervalEnd']));
-                $count = $item['count'];
+    foreach ($results['dataUser'] as $userId => $userData) {
+        foreach ($userData as $item) {
+            $idSmartContact = $userId;
+            $startDate = date('Y-m-d H:i:s', strtotime($item['intervalStart']));
+            $endDate = date('Y-m-d H:i:s', strtotime($item['intervalEnd']));
+            $count = $item['count'];
 
-                // Verifica se já existe um registro com os mesmos valores
-                $existingRecord = SentMessage::where('idSmartContact', $idSmartContact)
-                    ->where('start_date', $startDate)
-                    ->where('end_date', $endDate)
-                    ->where('count', $count)
-                    ->first();
+            // Verifica se já existe um registro com os mesmos valores
+            $existingRecord = SentMessage::where('idSmartContact', $idSmartContact)
+                ->where('start_date', $startDate)
+                ->where('end_date', $endDate)
+                ->where('count', $count)
+                ->first();
 
-                if($existingRecord) {
-                    // Já existe um registro com esses valores, mande uma mensagem de erro
-                    return redirect()->back()->withErrors(['error' => 'Já existe um registro com esses dados, não foi possível inserir']);
-                }
-                if (!$existingRecord) {
-                    // Não existe um registro com os mesmos valores, então insira
-                    SentMessage::create([
-                        'idSmartContact' => $idSmartContact,
-                        'start_date' => $startDate,
-                        'end_date' => $endDate,
-                        'count' => $count
-                    ]);
-                }
+            if (!$existingRecord) {
+                // Não existe um registro com os mesmos valores, então insira
+                SentMessage::create([
+                    'idSmartContact' => $idSmartContact,
+                    'start_date' => $startDate,
+                    'end_date' => $endDate,
+                    'count' => $count
+                ]);
             }
         }
-
-        return redirect()->back()->with('success', 'Registros inseridos com sucesso');
-
     }
+
+    return redirect()->back()->with('success', 'Registros inseridos com sucesso');
+}
+
 }
 
 
@@ -130,7 +127,8 @@ class SentMessageController extends Controller
        $startDate = $retoneDates['start_date']; // Corrigido para 'start_date'
        $endDate = $retoneDates['end_date']; // Corrigido para 'end_date'
 
-       $smartContacts = SmartContact::all();
+       $smartContacts = new SmartContactController();
+       $smartContacts= $smartContacts->getAllClientsExcludingPlanNames();
        $results = [];
 
        foreach ($smartContacts as $smartContact) {

@@ -21,6 +21,9 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('saveEventDetails') }}">Eventos Personalizados</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('saveDaus') }}">Infos DAO</a>
+    </li>
     @endsection
 @section('content')
     <div class="container">
@@ -64,7 +67,7 @@
                 <label for="bot_name" class="form-label"> Nome do bot</label>
                 <input type="text" class="form-control" id="bot_name" name="bot_name" placeholder="Nome do bot" required>
             </div>
-                <button type="submit" class="btn btn-primary">Cadastrar cadastro de um novo bot</button>
+                <button type="submit" class="btn btn-primary">Cadastrar um novo bot</button>
         </form>
     </div>
 

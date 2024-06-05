@@ -22,6 +22,9 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('saveEventDetails') }}">Eventos Personalizados</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('saveDaus') }}">Infos DAO</a>
+    </li>
     @endsection
 @section('content')
     <div class="container">
@@ -52,10 +55,19 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="planClient" class="form-label"> Qual o plano do cliente</label>
-                        <input type="text" class="form-control" id="planClient" name="planClient" placeholder="Nome do plano" required>
-                    </div>
-                        <button type="submit" class="btn btn-primary">Cadastrar cadastro de um novo bot</button>
+                        <label for="planName" class="form-label"> Qual o plano do cliente</label>
+                        <select name="planName" id="planName" class="form-select" required>
+                            <option value="Startup">Startup</option>
+                            <option value="Lite">Lite</option>
+                            <option value="Plus">Plus</option>
+                            <option value="Super">Super</option>
+                            <option value="Enterprise_Lite">Enterprise Lite</option>
+                            <option value="Enterprise">Enterprise</option>
+                            <option value="Business">Business</option>
+                            <option value="Start">Start</option>
+                        </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Cadastrar um novo cliente</button>
                 </form>
                 </div>
 

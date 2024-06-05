@@ -37,7 +37,7 @@ class ClientController extends Controller
         }
             $client=Client::create([
                 'customerName'=>$request->ClientName,
-                'planName'=>$request->planClient
+                'planName'=>$request->planName
             ]);
             $client->save();
             if($client){
