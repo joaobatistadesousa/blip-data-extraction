@@ -1,5 +1,3 @@
-
-
 @extends('statics.layout')
 @section('title', 'Itechit | Admin | Eventos Personalizados')
 
@@ -38,8 +36,6 @@
                     </div>
                 @endif
 
-
-                <!-- Adicione esta seção no seu arquivo Blade onde você deseja exibir a mensagem -->
                 @if ($errors->any())
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         {{ $errors->first('error') }}
@@ -64,15 +60,11 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Buscar</button>
                 </form>
-
-
-                </div>
-
             </div>
         </div>
     </div>
-
 @endsection
+
 @section('js')
 <script>
     document.addEventListener('DOMContentLoaded', function () {

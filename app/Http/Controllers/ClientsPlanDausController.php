@@ -115,7 +115,7 @@ class ClientPlanDausC
             "id" => uniqid(),
             "to" => "postmaster@analytics.msging.net",
             "method" => "get",
-            "uri" => "metrics/active-identity/D?startDate={$startDate}&endDate={$endDate}"
+            "uri" => "/metrics/active-identity/D?startDate={$startDate}&endDate={$endDate}"
         ]);
 
         $result = $this->post($url, $headers, $body);
