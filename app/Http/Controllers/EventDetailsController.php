@@ -4,31 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\EventDetails;
+use App\Models\SmartContact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Exception;
+use App\Services\EventDetailsRequest;
+
 
 class EventDetailsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
 
 {
@@ -95,110 +80,61 @@ class EventDetailsController extends Controller
 
 
 
-
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-}
-
-class EventDetailsRequest
+public function storeEspecific($bot_key, $eventsNames)
 {
-    public function calcularDatas()
-    {
-        // Obter a data atual
-        $endDate = date('Y-m-d');
+    // Busca o ID do bot a partir da chave do bot
+    $bot = SmartContact::where('botKey', $bot_key)->first();
+    if (!$bot) {
+        return ['error' => "Bot não encontrado"];
+    }
+    $bot_id = $bot->id;
 
-        // Subtrair 30 dias da data atual para obter a start_date
-        $startDate = date('Y-m-d', strtotime('-30 days', strtotime($endDate)));
+    $eventDetailsRequest = new EventDetailsRequest();
+    $results = $eventDetailsRequest->getEspecificsEvents([$bot_key], $eventsNames);
 
-        return array('start_date' => $startDate, 'end_date' => $endDate);
+    if (empty($results)) {
+        return ['error' => "Nenhum registro encontrado"];
     }
 
+    $insertedCount = 0;
+    $duplicateCount = 0;
 
+    foreach ($results as $item) {
+        $storageDate = date('Y-m-d H:i:s', strtotime($item->storageDate));
+        $category = $item->category;
+        $action = $item->action;
+        $count = $item->count;
 
-    function checkEventName($event_name)
-    {
-        // Verifica se a string contém caracteres especiais
-        if (preg_match('/[^\w\s\d]/u', $event_name)) {
-            $event_name = urlencode($event_name);
+        $existingRecord = EventDetails::where('storageDate', $storageDate)
+            ->where('category', $category)
+            ->where('action', $action)
+            ->where('count', $count)
+            ->where('idSmartContact', $bot_id)
+            ->first();
 
+        if (!$existingRecord) {
+            EventDetails::create([
+                'idSmartContact' => $bot_id,
+                'category' => $category,
+                'action' => $action,
+                'storageDate' => $storageDate,
+                'count' => $count
+            ]);
+            $insertedCount++;
+        } else {
+            $duplicateCount++;
         }
-        else{
-         $event_name = urlencode($event_name);
-        }
-        return $event_name;
-
-
-    }
-    public function EventDetails($bot_key, $start_date, $end_date, $quantity_of_events, $event_name)
-    {
-        $event_name = $this->checkEventName($event_name);
-        $url = "https://msging.net/commands";
-        $headers = [
-            'Content-Type: application/json',
-            'Authorization: ' . $bot_key
-        ];
-
-        $body = json_encode([
-            "id" => uniqid(),
-            "to" => "postmaster@analytics.msging.net",
-            "method" => "get",
-            "uri" => "/event-track/{$event_name}?startDate={$start_date}&endDate={$end_date}&\$take={$quantity_of_events}"
-        ]);
-
-        // Use a função post que você criou
-        $response = $this->post($url, $headers, $body);
-        $response = json_decode($response);
-
-        return $response->resource->items;
     }
 
-    public function post($uri, $headers, $body)
-    {
-        $ch = curl_init($uri);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        // curl_setopt($ch, CURLOPT_CAINFO, 'C:/laragon/etc/ssl/cacert.pem');
-
-        // Adicione estes logs para debugar
-        try {
-            $response = curl_exec($ch);
-            if (curl_errno($ch)) {
-                throw new Exception('Erro na requisição: ' . curl_error($ch));
-            }
-            return $response;
-        } catch (Exception $e) {
-            throw new Exception('Erro na requisição: ' . $e->getMessage());
-        } finally {
-            curl_close($ch);
-        }
+    if ($insertedCount > 0) {
+        return "{$insertedCount} dados inseridos com sucesso!";
+    } else {
+        return "{$duplicateCount} registros duplicados encontrados, nenhum novo dado foi inserido.";
     }
 }
+}
+
+
+
+    
 
