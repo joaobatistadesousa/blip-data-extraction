@@ -41,7 +41,7 @@ Schedule::call(function () {
     } else {
         \Log::info($result);
     }
-})->weekdays()->at('11:46');
+})->weekdays()->at('12:00');
 
 
 
