@@ -61,3 +61,18 @@ Schedule::call(function () {
     }
 })->weekdays()->at('11:46');
 
+//super brilho
+Schedule::call(function () {
+    $bot1Key = 'Key cm90ZWFkb3JzdXBlcmJyaWxobzpWUjZaUGUyb1ZUYmN6ZmdlWXBVdA==';
+    $eventName = ['flow','Setor','AtendimentosTotais','Fiscal','Redirect'];
+
+    $eventDetailsController = new EventDetailsController();
+    $result = $eventDetailsController->storeEspecific($bot1Key, $eventName);
+
+    if (is_array($result) && isset($result['error'])) {
+        \Log::error($result['error']);
+    } else {
+        \Log::info($result);
+    }
+})->weekdays()->at('13:00');
+
